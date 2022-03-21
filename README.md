@@ -1,4 +1,4 @@
-Multi-UAV path planning BINPAT
+# Multi-UAV path planning BINPAT
 
 Algorithm BINPAT for multi-UAV path planning to cover spatial areas 
 
