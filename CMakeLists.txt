@@ -12,6 +12,18 @@ target_include_directories(planning_binpat PUBLIC planning_binpat/include planni
 
 
 
+add_executable(planning_binpat_example examples/planning_binpat.cpp)
+
+target_link_libraries(planning_binpat_example planning_binpat)
+
+
+
 add_executable(generate_plan_example examples/generate_plan.cpp)
 
 target_link_libraries(generate_plan_example planning_binpat)
+
+
+
+add_executable(update_plan_example examples/update_plan.cpp)
+
+target_link_libraries(update_plan_example planning_binpat)

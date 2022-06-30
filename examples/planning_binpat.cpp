@@ -32,7 +32,7 @@
 #include "plan.hpp"
 
 int main() {
-    // Regionset
+    // Region
 
     std::vector vertices_0
         { gmt::point<2u>(0.f, 0.f)
@@ -41,28 +41,9 @@ int main() {
         , gmt::point<2u>(0.f, 15.f)
         };
 
-    auto polygon_0 = gmt::make_polygon(gmt::make_chain(seq::make_range_sequence(vertices_0)));
+    auto polygon = gmt::make_polygon(gmt::make_chain(seq::make_range_sequence(vertices_0)));
 
-    pln::region region_0 = pln::make_region(polygon_0, gmt::point<2u>(1.5f, 0.f));
-
-
-
-    std::vector vertices_1
-        { gmt::point<2u>(15.f, 0.f)
-        , gmt::point<2u>(30.f, 0.f)
-        , gmt::point<2u>(30.f, 10.f)
-        , gmt::point<2u>(15.f, 10.f)
-        };
-
-    auto polygon_1 = gmt::make_polygon(gmt::make_chain(seq::make_range_sequence(vertices_1)));
-
-    pln::region region_1 = pln::make_region(polygon_1, gmt::point<2u>(3.f, 0.f));
-
-
-
-    std::vector region_vector{ region_0, region_1 };
-
-    auto regionset = seq::make_range_sequence(region_vector);
+    pln::region region = pln::make_region(polygon, gmt::point<2u>(1.5f, 0.f));
 
 
 
@@ -88,7 +69,7 @@ int main() {
 
 
 
-    auto plan = pln::generate_plan(regionset, homeset, parameters);
+    auto plan = pln::planning_binpat(region, homeset, parameters);
 
 
 

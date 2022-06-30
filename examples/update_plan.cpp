@@ -71,6 +71,7 @@ int main() {
     std::vector home_vector
         { gmt::point<3u>(-1.f, 0.f, .0f)
         , gmt::point<3u>(-1.f, 3.f, .0f)
+        , gmt::point<3u>(-1.f, 5.f, .0f)
         };
 
     auto homeset = seq::make_range_sequence(home_vector);
@@ -88,11 +89,35 @@ int main() {
 
 
 
-    auto plan = pln::generate_plan(regionset, homeset, parameters);
+    // Original Plan
+
+    auto generated_plan = pln::generate_plan(regionset, homeset, parameters);
 
 
 
-    std::cout << plan << std::endl;
+    auto lambda = [](auto &&path) {
+        auto index = path.getindex() == 0 ? idx::null : path.getindex();
+
+        return idx::make_chain(index, std::forward<decltype(path)>(path).getchain());
+    };
+
+    auto advanced_plan = gmt::make_scrawl(seq::transform(lambda, std::move(generated_plan)));
+
+
+
+    std::cout << advanced_plan << '\n' << std::endl;
+
+
+
+    // Updated Plan
+
+    float threshold = .9f;
+
+    auto updated_plan = pln::update_plan(std::move(advanced_plan), parameters, threshold);
+
+
+
+    std::cout << updated_plan.value() << std::endl;
 
     return 0;
 }
